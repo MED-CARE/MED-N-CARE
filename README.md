@@ -21,11 +21,11 @@ Welcome to MED&CARE, a platform committed to advancing healthcare accessibility 
 
 ## Getting Started
 To deploy MED&CARE locally or for development purposes, follow these steps:
-1. **Clone the repository**: `git clone https://github.com/your-username/med-and-care.git`
+1. **Clone the repository**: `git clone https://github.com/souravcodes1080/med-and-care.git`
 2. **Install dependencies**: Navigate to the project directory and run `npm install`.
 3. **Database setup**: Configure MongoDB and update the connection string in the project settings.
 4. **Run the application**: Start the server with `npm start`.
-5. **Access**: Open your web browser and go to `http://localhost:3000` to view MED&CARE.
+5. **Access**: Open your web browser and go to `http://localhost:5173` to view MED&CARE.
 
 ## Contributing
 We welcome contributions to enhance MED&CARE and expand its capabilities. To contribute, please fork the repository, create a feature branch, and submit a pull request detailing your changes.
