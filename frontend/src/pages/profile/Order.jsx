@@ -54,8 +54,23 @@ function Order() {
   }
 
   if (!orderData || orderData.length === 0) {
-    return <div className="container">No orders available.</div>;
+    return <div className="container no-order">No orders available.</div>;
   }
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'Pending':
+        return 'orange';
+      case 'Processing':
+        return 'blue';
+      case 'Completed':
+        return 'green';
+      case 'Cancelled':
+        return 'red';
+      default:
+        return 'black';
+    }
+  };
 
   return (
     <>
@@ -64,19 +79,40 @@ function Order() {
           <div className="logo">
             <img src={logo} alt="" width={"80px"} /> <p>Your Orders</p>
           </div>
-          {/* <p>Edit your details here.</p> */}
-          <form className="signup-form profile-form">
+          <form className="order-wrapper">
             <div className="items">
               {orderData.map((order) => (
                 <div key={order._id} className="order-item">
-                  <p>{order.pharmacy && order.pharmacy.name}</p>
-
-                  <p>{order.instruction}</p>
-                  <p>{order.status}</p>
+                  <div className="order-thumbnail">
+                    {order.prescription && order.prescription.length > 0 ? (
+                      order.prescription.map((prescription, index) => (
+                        <a
+                          key={index}
+                          href={`http://localhost:8080/${prescription}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img
+                            src={`http://localhost:8080/${prescription}`}
+                            alt={``}
+                            width="100px"
+                          />
+                        </a>
+                      ))
+                    ) : (
+                      <p>No prescription</p>
+                    )}
+                  </div>
+                  <div className="order-details">
+                    <p>{order.pharmacy && order.pharmacy.name}</p>
+                  </div>
+                  <p style={{ color: getStatusColor(order.status) }}>
+                    {order.status}
+                  </p>
                 </div>
               ))}
             </div>
-          </form>{" "}
+          </form>
         </div>
       </div>
     </>

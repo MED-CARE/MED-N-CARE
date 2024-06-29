@@ -299,7 +299,7 @@ function PharmacyDetails() {
                       type="file"
                       multiple
                       onChange={handlePrescriptionChange}
-                      required
+                      
                     />
                   </div>
                   <div className="appointment-input">
