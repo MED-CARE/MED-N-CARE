@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./pharmacyDetails.css";
 import location from "../../../public/assets/location.png";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
 
 function PharmacyDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [pharmacyDetails, setPharmacyDetails] = useState([]);
   const [loading, setLoading] = useState(false);
   const [bookLoading, setBookLoading] = useState(false);
@@ -22,6 +23,10 @@ function PharmacyDetails() {
   const [bookingPortal, setBookingPortal] = useState(false);
   const [prescription, setPrescription] = useState([]);
   const [instruction, setInstructions] = useState("");
+  const [adr, setAdr] = useState(cookies["address"]);
+  const [phno, setphno] = useState(cookies["phoneNumber"]);
+  const [isSubscription, setIsSubscription] = useState(false);
+  const [subscriptionFrequency, setSubscriptionFrequency] = useState("");
 
   useEffect(() => {
     fetchPharmacyDetails();
@@ -55,6 +60,7 @@ function PharmacyDetails() {
   const handlePrescriptionChange = (e) => {
     setPrescription([...e.target.files]);
   };
+
   const submitBookAppointment = async (e) => {
     e.preventDefault();
     try {
@@ -64,8 +70,8 @@ function PharmacyDetails() {
       const userId = cookies.userid;
       const userName = cookies.name;
       const userEmail = cookies.email;
-      const userPhoneNumber = cookies.phoneNumber;
-      const userAddress = cookies.address;
+      const userPhoneNumber = phno;
+      const userAddress = adr;
 
       if (
         !userId ||
@@ -86,15 +92,14 @@ function PharmacyDetails() {
       formData.append("email", userEmail);
       formData.append("phoneNumber", userPhoneNumber);
       formData.append("address", userAddress);
+      formData.append("isSubscription", isSubscription);
+      if (isSubscription) {
+        formData.append("subscriptionFrequency", subscriptionFrequency);
+      }
 
       // Append prescription files
       for (let i = 0; i < prescription.length; i++) {
         formData.append("prescription", prescription[i]);
-      }
-
-      // Log FormData entries
-      for (let [key, value] of formData.entries()) {
-        console.log(`${key}:`, value);
       }
 
       const response = await axios.post(
@@ -110,6 +115,7 @@ function PharmacyDetails() {
       if (response.data.success) {
         toast.success("Order placed successfully!");
         setBookLoading(false);
+        navigate("/myorder")
       } else {
         toast.error("Failed to place order. Please try again.");
         setBookLoading(false);
@@ -232,10 +238,11 @@ function PharmacyDetails() {
             </p>
             <p>
               {" "}
-              🌐{" "}
-              <a href={website} target="_blank">
-                Visit Website
-              </a>
+              {website && (
+                <a href={website} target="_blank">
+                  🌐 Visit Website
+                </a>
+              )}
             </p>
           </div>
         </section>
@@ -277,11 +284,9 @@ function PharmacyDetails() {
         <section className="">
           {bookingPortal &&
             (!cookies.token ? (
-              <p className="alert">Please login to book appointment.</p>
-            ) : cookies.address == "undefined" || "" || null ? (
-              <p className="alert">
-                Please update your profile to book appointment.
-              </p>
+              <p className="alert">Please login to book an appointment.</p>
+            ) : cookies.address === "undefined" || cookies.address === "" || cookies.address === null ? (
+              <p className="alert">Please update your profile to book an appointment.</p>
             ) : (
               <form
                 onSubmit={submitBookAppointment}
@@ -307,9 +312,62 @@ function PharmacyDetails() {
                       required
                     />
                   </div>
+                  <div className="appointment-input">
+                    <label htmlFor="address">Address</label>
+                    <textarea
+                      id="address"
+                      rows={6}
+                      name="address"
+                      value={adr}
+                      onChange={(e) => setAdr(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="appointment-input">
+                    <label htmlFor="phoneNumber">Phone Number</label>
+                    <input
+                      type="text"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      value={phno}
+                      onChange={(e) => setphno(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="appointment-input">
+                    <label htmlFor="subscription">
+                      Make it a subscription
+                    </label>
+                      <input
+                        type="checkbox"
+                        id="subscription"
+                        name="subscription"
+                        checked={isSubscription}
+                        onChange={(e) => setIsSubscription(e.target.checked)}
+                      />
+                  </div>
+                  {isSubscription && (
+                    <div className="appointment-input">
+                      <label htmlFor="frequency">Subscription Frequency</label>
+                      <select
+                        id="frequency"
+                        name="frequency"
+                        value={subscriptionFrequency}
+                        onChange={(e) => setSubscriptionFrequency(e.target.value)}
+                        required
+                      >
+                        <option value="" disabled>Select frequency</option>
+                        <option value="1">Every month</option>
+                        <option value="2">Every 2 months</option>
+                        <option value="3">Every 3 months</option>
+                        <option value="6">Every 6 months</option>
+                      </select>
+                    </div>
+                  )}
                   <button type="submit">
                     {bookLoading ? "Placing Order..." : "Place Order"}
                   </button>
+                  <p className="confirm">(By placing order, our executive will call you to confirm your order).</p>
                 </div>
               </form>
             ))}

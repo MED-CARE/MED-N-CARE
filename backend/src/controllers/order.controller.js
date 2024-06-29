@@ -15,6 +15,8 @@ const createOrder = async (req, res) => {
       email,
       phoneNumber,
       address,
+      isSubscription,
+      subscriptionFrequency
     } = req.body;
     const prescription = req.files ? req.files.map((file) => file.path) : [];
 
@@ -27,10 +29,12 @@ const createOrder = async (req, res) => {
       email,
       phoneNumber,
       address,
+      isSubscription,
+      subscriptionFrequency
     });
 
     await newOrder.save();
-    await sendOrderNotif(email, name, address, phoneNumber);
+    await sendOrderNotif(email, name, address, phoneNumber, isSubscription, subscriptionFrequency);
     return res.status(201).json({
       success: true,
       message: "Order placed successfully",

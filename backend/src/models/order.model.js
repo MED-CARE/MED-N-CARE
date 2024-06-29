@@ -40,6 +40,12 @@ const orderSchema = new mongoose.Schema({
     enum: ['Pending', 'Processing', 'Completed', 'Cancelled'],
     default: 'Pending',
   },
+  isSubscription:{
+    type: Boolean,
+  },
+  subscriptionFrequency:{
+    type: Number
+  }
 }, { timestamps: true });
 
 const Order = mongoose.model('Order', orderSchema);
