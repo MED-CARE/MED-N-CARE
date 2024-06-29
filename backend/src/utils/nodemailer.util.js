@@ -1,22 +1,22 @@
 import nodemailer from "nodemailer";
 
 const sendMail = async (email, otp) => {
-    const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        secure: false,
-        auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASSWORD,
-        },
-    });
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD,
+    },
+  });
 
-    await transporter.sendMail({
-        from: process.env.SMTP_USER,
-        to: email,
-        subject: "Med & Care email verification.",
-        text: `Your OTP for email verification is: ${otp}. The otp is valid for 10 min. Do not share otp with anyone else.`,
-        html: `<!DOCTYPE html>
+  await transporter.sendMail({
+    from: process.env.SMTP_USER,
+    to: email,
+    subject: "Med & Care email verification.",
+    text: `Your OTP for email verification is: ${otp}. The otp is valid for 10 min. Do not share otp with anyone else.`,
+    html: `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -127,25 +127,25 @@ const sendMail = async (email, otp) => {
     </div>
 </body>
 </html>`,
-    });
+  });
 };
 const sendWelcomeMail = async (email, username) => {
-    const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        secure: false,
-        auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASSWORD,
-        },
-    });
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD,
+    },
+  });
 
-    await transporter.sendMail({
-        from: process.env.SMTP_USER,
-        to: email,
-        subject: "Welcome to Our App!!",
-        text: `Greetings ${username}. We hope yoou will love our app. Stay safe and be happy.`,
-        html: `<!DOCTYPE html>
+  await transporter.sendMail({
+    from: process.env.SMTP_USER,
+    to: email,
+    subject: "Welcome to Our App!!",
+    text: `Greetings ${username}. We hope yoou will love our app. Stay safe and be happy.`,
+    html: `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -293,25 +293,25 @@ const sendWelcomeMail = async (email, username) => {
     </div>
 </body>
 </html>`,
-    });
+  });
 };
-const sendOrderNotif = async (email, name, address, phno) => {
-    const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        secure: false,
-        auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASSWORD,
-        },
-    });
+const sendOrderNotif = async (email, name, address, phno, isSubscription, subscriptionFrequency) => {
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD,
+    },
+  });
 
-    await transporter.sendMail({
-        from: process.env.SMTP_USER,
-        to: email,
-        subject: "Your order has been placed",
-        text: `Greetings ${name}. Order has been placed from Med&Care. `,
-        html: `<html lang="en">
+  await transporter.sendMail({
+    from: process.env.SMTP_USER,
+    to: email,
+    subject: "Your order has been placed",
+    text: `Greetings ${name}. Order has been placed from Med&Care. `,
+    html: `<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -454,6 +454,17 @@ const sendOrderNotif = async (email, name, address, phno) => {
                         <th>Email:</th>
                         <td>${email}</td>
                     </tr>
+                    ${
+                      isSubscription ? (`
+                        <tr>
+                          <th>Subscription:</th>
+                          <td>Every ${subscriptionFrequency} month(s).</td>
+                        </tr>`
+                      ) : (
+                        ""
+                      )
+                    } 
+                   
                 </table>
             </div>
             <div class="order-description">
@@ -483,31 +494,31 @@ const sendOrderNotif = async (email, name, address, phno) => {
     </div>
 </body>
 </html>`,
-    });
+  });
 };
 const formatDate = (timestamp) => {
-    const date = new Date(timestamp);
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return date.toLocaleDateString(undefined, options);
+  const date = new Date(timestamp);
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return date.toLocaleDateString(undefined, options);
 };
 
 const sendAppointmentNotif = async (email, name, hospital, dr, date, time) => {
-    const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        secure: false,
-        auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASSWORD,
-        },
-    });
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD,
+    },
+  });
 
-    await transporter.sendMail({
-        from: process.env.SMTP_USER,
-        to: email,
-        subject: "Appointment Reminder from Med&Care.",
-        text: `Greetings ${name}. Appointment Reminder from Med&Care. Your Appointment is created in ${hospital}.`,
-        html: `<!DOCTYPE html>
+  await transporter.sendMail({
+    from: process.env.SMTP_USER,
+    to: email,
+    subject: "Appointment Reminder from Med&Care.",
+    text: `Greetings ${name}. Appointment Reminder from Med&Care. Your Appointment is created in ${hospital}.`,
+    html: `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -683,25 +694,25 @@ const sendAppointmentNotif = async (email, name, hospital, dr, date, time) => {
     </div>
 </body>
 </html>`,
-    });
+  });
 };
-const sendEnquiryMail = async (email, hospital, doctor, address,phno) => {
-    const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        secure: false,
-        auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASSWORD,
-        },
-    });
+const sendEnquiryMail = async (email, hospital, doctor, address, phno) => {
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD,
+    },
+  });
 
-    await transporter.sendMail({
-        from: process.env.SMTP_USER,
-        to: email,
-        subject: "Welcome to Our App!!",
-        text: `Greetings ${username}. We hope yoou will love our app. Stay safe and be happy.`,
-        html: `<!DOCTYPE html>
+  await transporter.sendMail({
+    from: process.env.SMTP_USER,
+    to: email,
+    subject: "Welcome to Our App!!",
+    text: `Greetings ${username}. We hope yoou will love our app. Stay safe and be happy.`,
+    html: `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -862,7 +873,12 @@ const sendEnquiryMail = async (email, hospital, doctor, address,phno) => {
     </div>
 </body>
 </html>`,
-    });
+  });
 };
-export { sendWelcomeMail, sendAppointmentNotif, sendOrderNotif, sendEnquiryMail };
+export {
+  sendWelcomeMail,
+  sendAppointmentNotif,
+  sendOrderNotif,
+  sendEnquiryMail,
+};
 export default sendMail;
