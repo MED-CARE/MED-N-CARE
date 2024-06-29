@@ -1,0 +1,81 @@
+.download-app {
+  background-color: rgba(0, 0, 0, 0.071);
+}
+.download-app-container {
+  display: flex;
+  align-items: center;
+  padding: 50px 0;
+}
+.download-app-container p {
+  flex: 1;
+  font-weight: 500;
+  font-size: 26px;
+}
+.download-app-container div {
+  justify-content: flex-end;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.download-app-container img {
+  width: 180px;
+  height: 55px;
+}
+
+footer {
+  background-color: #02060c;
+  color: white;
+  padding: 60px 0 100px 0;
+}
+footer img {
+  width: 100px;
+}
+footer .logo .copyright {
+  font-size: 14px;
+  width: 160px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.511);
+}
+footer .logo .style {
+  font-family: "Playfair Display", serif;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 30px;
+}
+footer ul {
+  list-style: none;
+  padding: 0;
+}
+footer li {
+  padding: 10px 0;
+  color: rgba(255, 255, 255, 0.511);
+}
+
+@media (max-width: 1200px) {
+}
+@media (max-width: 800px) {
+  .download-app-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .download-app-container p {
+    text-align: center;
+  }
+  .footer-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer img{
+    display: block !important;
+  }
+}
+@media (max-width: 500px) {
+  .download-app-container img {
+    width: 140px;
+    height: 47px;
+  }
+}

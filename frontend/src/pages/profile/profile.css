@@ -1,0 +1,70 @@
+
+.name{
+    display: flex;
+    align-items: center;
+    gap:20px;
+    justify-content: space-between;
+}
+.name label{
+    width: 30%;
+}
+.name input{
+    width: 60%;
+}
+.age{
+    width: 20% !important;
+}
+
+.small-label{
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    justify-content: space-between;
+}
+.small-label label{
+    flex:1
+}
+.small-label input{
+    flex: 0.5;
+}
+.signup-container p{
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 20px;
+}
+textarea{
+    width: 60%;
+    resize: none;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.238);
+    border-radius: 6px;
+    padding: 10px 20px;
+}
+.profile-button{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.update-location{
+    background-color: rgb(211, 211, 211) !important;
+    color: black !important;
+}
+.update{
+    width: 80px !important;
+}
+.logout{
+    width: 80px;
+    background-color: rgb(146, 0, 0) !important;
+}
+
+.order-item{
+    border: 1px solid rgba(0, 0, 0, 0.112);
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 10px 0;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}   

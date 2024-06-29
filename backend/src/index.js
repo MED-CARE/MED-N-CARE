@@ -10,6 +10,7 @@ import { doctorRouter } from "./routes/doctor.route.js";
 import { pharmacyRouter } from "./routes/pharmacy.route.js";
 import { appointmentRouter } from "./routes/appointment.route.js";
 import { orderRouter } from "./routes/order.route.js";
+import { labRouter } from "./routes/lab.route.js";
 
 //middlewares
 const app = express();
@@ -31,6 +32,7 @@ app.use("/api/doctor", doctorRouter)
 app.use("/api/pharmacy", pharmacyRouter)
 app.use("/api/appointment", appointmentRouter)
 app.use("/api/order", orderRouter)
+app.use("/api/lab", labRouter)
 
 app.listen(process.env.PORT, () => {
   console.log(`✨ Server is running on port ${process.env.PORT}. ✨`);
