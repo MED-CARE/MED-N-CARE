@@ -55,10 +55,10 @@ const pharmacySchema = new mongoose.Schema(
     //     ref: Review,
     //   },
     // ],
-    rating: {
-      type: Number,
-      default: 0.0,
-    },
+    // rating: {
+    //   type: Number,
+    //   default: 0.0,
+    // },
     location: {
       type: {
         type: String,

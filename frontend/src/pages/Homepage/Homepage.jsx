@@ -35,6 +35,8 @@ function Homepage() {
     fetchHospital();
     fetchPharmacy();
    
+    setCookie("lat", location.lat)
+    setCookie("long", location.long)
   }, [location]);
 
   const fetchLoactionData = async () => {
@@ -45,7 +47,6 @@ function Homepage() {
           const lat = position.coords.latitude;
           const long = position.coords.longitude;
           setLocation({ lat, long });
-
           try {
             const response = await axios.get(
               `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`
@@ -134,7 +135,7 @@ function Homepage() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={handleSearchKeyPress}
-                placeholder="Search for hospitals, pharmacy all across India"
+                placeholder="Search for pharmacies nearby you..."
               />
             </div>
           </form>
@@ -144,6 +145,7 @@ function Homepage() {
       <br />
       <br />
       <br />
+{/*       
       <section className="container">
         <p className="sub-title-left">Explore Category </p>
         <div className="category">
@@ -174,9 +176,9 @@ function Homepage() {
             </Link>
           </ul>
         </div>
-      </section>
+      </section> */}
 
-      <section className="container">
+      {/*<section className="container">
         <p className="sub-title-middle">Top Hospitals near {userLocality}</p>
         <div className="container">
           <div className="hospital-list">
@@ -197,7 +199,7 @@ function Homepage() {
             )}
           </div>
         </div>
-      </section>
+      </section>*/}
 
       <section className="container">
         <p className="sub-title-middle">Top Pharmacies near {userLocality}</p>

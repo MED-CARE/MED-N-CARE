@@ -43,6 +43,11 @@ const userSchema = new mongoose.Schema(
         default: 88.364241,
       },
     },
+    type:{
+      type: String,
+      required: true,
+      enum: ["user", "pharmacist", "admin"]
+    },
     biodata: {
       height: {
         type: Number,
@@ -63,10 +68,10 @@ const userSchema = new mongoose.Schema(
       type: [String],
       default: null,
     },
-    isVerified: {
-      type: Boolean,
-      default: false,
-    },
+    // isVerified: {
+    //   type: Boolean,
+    //   default: false,
+    // },
     otp: {
       type: Number,
     },

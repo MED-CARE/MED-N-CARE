@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
+import Tesseract, {createWorker} from "tesseract.js";
 
 function PharmacyDetails() {
   const { id } = useParams();
@@ -27,6 +28,7 @@ function PharmacyDetails() {
   const [phno, setphno] = useState(cookies["phoneNumber"]);
   const [isSubscription, setIsSubscription] = useState(false);
   const [subscriptionFrequency, setSubscriptionFrequency] = useState("");
+  const [extractedText, setExtractedText] = useState("");
 
   useEffect(() => {
     fetchPharmacyDetails();
@@ -57,8 +59,22 @@ function PharmacyDetails() {
     setBookingPortal(true);
   };
 
-  const handlePrescriptionChange = (e) => {
-    setPrescription([...e.target.files]);
+  const handlePrescriptionChange = async (e) => {
+    const files = Array.from(e.target.files);
+    setPrescription(files);
+
+    if (files.length > 0) {
+      try {
+        const result = await Tesseract.recognize(files[0], 'eng', {
+          logger: (m) => console.log(m),
+        });
+        setExtractedText(result.data.text);
+        console.log(result.data)
+      } catch (error) {
+        console.error("Error extracting text:", error);
+        toast.error("Failed to extract text from the prescription. Please try again.");
+      }
+    }
   };
 
   const submitBookAppointment = async (e) => {
@@ -302,6 +318,18 @@ function PharmacyDetails() {
                       
                     />
                   </div>
+                  {extractedText && (
+                    <div className="appointment-input">
+                      <label htmlFor="extractedText">Extracted Text</label>
+                      <textarea
+                      rows={10}
+                        id="extractedText"
+                        name="extractedText"
+                        value={extractedText}
+                        readOnly
+                      />
+                    </div>
+                  )}
                   <div className="appointment-input">
                     <label htmlFor="instruction">Add Instructions</label>
                     <textarea

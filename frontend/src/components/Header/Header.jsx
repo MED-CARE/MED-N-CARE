@@ -28,10 +28,12 @@ function Header() {
               )}
 
               <li>Book Appointment</li>
-              <li>Pharmacy</li>
-              <Link className="link" to={"/labtests"}>
-                <li>Lab Tests</li>
+              <Link className="link" to={"/pharmacy-page"}>
+                <li>Pharmacy</li>
               </Link>
+              {/* <Link className="link" to={"/labtests"}>
+                <li>Lab Tests</li>
+              </Link> */}
             </ul>
           </div>
           <div className="header-right">
@@ -55,6 +57,9 @@ function Header() {
                 </button>
                 <button className="login" onClick={() => navigate("/login")}>
                   Login
+                </button>
+                <button className="owner" onClick={() => navigate("/owner")}>
+                  Register as a owner
                 </button>
               </>
             )}

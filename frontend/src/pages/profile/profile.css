@@ -81,6 +81,7 @@ textarea{
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #ccc;
+    gap: 40px;
   }
   
   .order-thumbnail img {
@@ -89,6 +90,7 @@ textarea{
   
   .order-details {
     flex: 1;
+    gap: 30px;
   }
   
   .order-status {

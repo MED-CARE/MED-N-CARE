@@ -60,6 +60,16 @@ header .header-left ul {
   border-radius: 100px;
   cursor: pointer;
 }
+.owner{
+  background-color: yellowgreen;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 10px 14px;
+  font-size: 15px;
+  cursor: pointer;
+}
 
 
 @media (max-width: 1200px) {

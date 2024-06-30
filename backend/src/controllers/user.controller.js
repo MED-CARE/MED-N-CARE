@@ -8,16 +8,16 @@ const register = async (req, res) => {
   try {
     const {
       name,
-      gender,
-      age,
+      // gender,
+      // age,
       email,
       phoneNumber,
       password,
       lat,
       long,
-      height,
-      weight,
-      bloodGroup,
+      // height,
+      // weight,
+      // bloodGroup,
     } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -121,9 +121,9 @@ const login = async (req, res) => {
     if (!existingUser) {
       return res.json({ success: false, message: "No user found." });
     }
-    if (!existingUser.isVerified) {
-      return res.json({ success: false, message: "User not verified." });
-    }
+    // if (!existingUser.isVerified) {
+    //   return res.json({ success: false, message: "User not verified." });
+    // }
     const validUser = await bcrypt.compare(password, existingUser.password);
     if (validUser) {
       //   const token = jwt.sign(

@@ -11,6 +11,7 @@ import { pharmacyRouter } from "./routes/pharmacy.route.js";
 import { appointmentRouter } from "./routes/appointment.route.js";
 import { orderRouter } from "./routes/order.route.js";
 import { labRouter } from "./routes/lab.route.js";
+import authRoute  from "./routes/auth.route.js";
 
 //middlewares
 const app = express();
@@ -33,6 +34,8 @@ app.use("/api/pharmacy", pharmacyRouter)
 app.use("/api/appointment", appointmentRouter)
 app.use("/api/order", orderRouter)
 app.use("/api/lab", labRouter)
+app.use('/api/auth', authRoute);
+
 
 app.listen(process.env.PORT, () => {
   console.log(`✨ Server is running on port ${process.env.PORT}. ✨`);
